@@ -66,8 +66,24 @@
         <button class="mode-btn" data-mode="5">Radial Wave</button>
         <button id="start-btn">Activate Mic</button>
     </div>
-        
 
+    <div id="ui">
+        <select id="modeSelect">
+            <option value="0">Lissajous</option>
+            <option value="1">Mandala</option>
+            <option value="2">Constellation</option>
+            <option value="3">Particles</option>
+            <option value="4">Interference</option>
+            <option value="5">Radial Wave</option>
+        </select>
+    </div>
+
+    <canvas id="canvas"></canvas>
+
+    <script>
+        // your full JS code here
+    </script>
+</body>
 <!-- TRY: a warm amber palette / red-orange, dark orange, gold, light gold, cream-->
     <div class="freq-fill" id="bar-bass"></div>
     <div class="freq-fill" id="bar-lowmid"></div>
@@ -391,6 +407,7 @@ function animate() {
          /* Add this after the mode === 3 branch */
     else if (mode === 5) drawRadialWave(cx, cy, W, H);
 }
+    
 </script>
 
 </body>
