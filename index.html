@@ -186,21 +186,31 @@ const hsl(h, s, l, a = 1) => `hsla(${h},${s}%,${l}%,${a})`;
 /* 
 
 */
-document.getElementById("micButton").onclick = async () => {
-    audioCtx = new AudioContext();
-    await audioCtx.resume(); // <— ensures AudioContext is running
+const micButton = document.getElementById("micButton");
+let audioContext, analyser, source;
+
+micButton.addEventListener("click", async () => {
+    if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        source = audioContext.createMediaStreamSource(stream);
+
+        analyser = audioContext.createAnalyser();
+        analyser.fftSize = 1024;
+
+        source.connect(analyser);
+
+        console.log("Mic activated!");
+    } catch (err) {
+        console.error("Error accessing mic:", err);
+    }
     
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const src = audioCtx.createMediaStreamSource(stream);
+    animate();
 
-    analyser = audioCtx.createAnalyser();
-    analyser.fftSize = 1024;   /* lower resolution = chunkier, reactive feel */
-    analyser.smoothingTimeConstant = 0.4; /* immediate / reactive (good for percussion) */
-
-    freqData = new Uint8Array(analyser.frequencyBinCount);
-    timeData = new Uint8Array(analyser.fftSize);
-
-    src.connect(analyser);
+});
 
     animate();
 };
