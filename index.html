@@ -130,20 +130,20 @@
         <!-- Inside <div id="controls"> -->
         <button id="micButton">activate mic</button>
     </div>
-    
+
+     <!-- Canvas -->
     <canvas id="canvas"></canvas>
 
-    </script>
-</body>
-<!-- TRY: a warm amber palette / red-orange, dark orange, gold, light gold, cream-->
+    <!-- TRY: a warm amber palette / red-orange, dark orange, gold, light gold, cream-->
     <div class="freq-fill" id="bar-bass"></div>
     <div class="freq-fill" id="bar-lowmid"></div>
     <div class="freq-fill" id="bar-mid"></div>
     <div class="freq-fill" id="bar-highmid"></div>
     <div class="freq-fill" id="bar-treble"></div>
+    
+    </script>
+</body>
 
-    <!-- Canvas -->
-    <canvas id="canvas"></canvas>
     
 <script>
         /*
@@ -236,7 +236,7 @@ function drawMandala(cx, cy) {
     ctx.save();
     const t = performance.now() * 0.001;
 
-    const petals = Math.round(3 + sBass * 8); /* TRY: fewer petals, driven by bass instead */
+    const petals = Math.max(3, Math.round(3 + sBass * 8); /* TRY: fewer petals, driven by bass instead */
     const rotSpeed = -(sTreble * 0.06 + 0.002); /* TRY: reverse spin, driven by treble */
 
     ctx.translate(cx, cy);
@@ -392,24 +392,9 @@ function drawRadialWave(x0, y0, w, h, alpha = 1) {
 
 let mode = 0;
     
-    document.getElementById ("modeSelect") .addEventListener ("change", (e) →> {
-        mode = parseInt(e.target.value);
+document.getElementById ("modeSelect").addEventListener ("change", (e) →> {
+    mode = parseInt(e.target.value);
 }) ;
-    
-const MODE_NAMES = [
-  'LISSAJOUS',
-  'MANDALA',
-  'CONSTELLATION',
-  'INTERFERENCE',
-  'ALL MODES',
-  'RADIAL WAVE' //add this
-];
-
-document.querySelectorAll(".mode-btn").forEach(btn => {
-    btn.onclick = () => {
-        mode = Number(btn.dataset.mode);
-    };
-});
 
 function animate() {
     requestAnimationFrame(animate);
